@@ -1,6 +1,5 @@
 print("Ola mundo")
 
 
-def test():
+def minha_funcao():
     print("oi")
-    
