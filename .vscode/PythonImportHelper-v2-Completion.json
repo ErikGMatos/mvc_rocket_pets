@@ -104,6 +104,30 @@
         "documentation": {}
     },
     {
+        "label": "NoResultFound",
+        "importPath": "sqlalchemy.exc",
+        "description": "sqlalchemy.exc",
+        "isExtraImport": true,
+        "detail": "sqlalchemy.exc",
+        "documentation": {}
+    },
+    {
+        "label": "PeopleTable",
+        "importPath": "src.models.sqlite.entities.people",
+        "description": "src.models.sqlite.entities.people",
+        "isExtraImport": true,
+        "detail": "src.models.sqlite.entities.people",
+        "documentation": {}
+    },
+    {
+        "label": "PetsTable",
+        "importPath": "src.models.sqlite.entities.pets",
+        "description": "src.models.sqlite.entities.pets",
+        "isExtraImport": true,
+        "detail": "src.models.sqlite.entities.pets",
+        "documentation": {}
+    },
+    {
         "label": "PetsTable",
         "importPath": "src.models.sqlite.entities.pets",
         "description": "src.models.sqlite.entities.pets",
@@ -161,6 +185,14 @@
         "documentation": {}
     },
     {
+        "label": "PeopleRepository",
+        "importPath": "src.models.sqlite.repositories.people_repository",
+        "description": "src.models.sqlite.repositories.people_repository",
+        "isExtraImport": true,
+        "detail": "src.models.sqlite.repositories.people_repository",
+        "documentation": {}
+    },
+    {
         "label": "declarative_base",
         "importPath": "sqlalchemy.orm",
         "description": "sqlalchemy.orm",
@@ -192,6 +224,15 @@
         "description": "src.models.sqlite.entities.pets",
         "peekOfCode": "class PetsTable(Base):\n    __tablename__ = 'pets'\n    id = Column(BIGINT, primary_key=True)\n    name = Column(String, nullable=False)\n    type = Column(String, nullable=False)\n    def __repr__(self):\n        return f'Pets [name={self.name}, type={self.type}]'",
         "detail": "src.models.sqlite.entities.pets",
+        "documentation": {}
+    },
+    {
+        "label": "PeopleRepository",
+        "kind": 6,
+        "importPath": "src.models.sqlite.repositories.people_repository",
+        "description": "src.models.sqlite.repositories.people_repository",
+        "peekOfCode": "class PeopleRepository:\n    def __init__(self, db_connection) -> None:\n        self.__db_connection = db_connection\n    def insert_person(self, first_name: str, last_name: str, age: int, pet_id: int) -> None:\n        with self.__db_connection as database:\n            try:\n                person_data = PeopleTable(\n                    first_name=first_name,\n                    last_name=last_name,\n                    age=age,",
+        "detail": "src.models.sqlite.repositories.people_repository",
         "documentation": {}
     },
     {
@@ -271,7 +312,25 @@
         "kind": 2,
         "importPath": "src.models.sqlite.repositories.repositories_test",
         "description": "src.models.sqlite.repositories.repositories_test",
-        "peekOfCode": "def test_delete_pet():\n    name = \"belinha\"\n    repo = PetsRepository(db_connection_handler)\n    repo.delete_pet(name)",
+        "peekOfCode": "def test_delete_pet():\n    name = \"belinha\"\n    repo = PetsRepository(db_connection_handler)\n    repo.delete_pet(name)\n@pytest.mark.skip(reason=\"interaction with database\")\ndef test_insert_person():\n    first_name = \"test name\"\n    last_name = \"test last\"\n    age = 77\n    pet_id = 2",
+        "detail": "src.models.sqlite.repositories.repositories_test",
+        "documentation": {}
+    },
+    {
+        "label": "test_insert_person",
+        "kind": 2,
+        "importPath": "src.models.sqlite.repositories.repositories_test",
+        "description": "src.models.sqlite.repositories.repositories_test",
+        "peekOfCode": "def test_insert_person():\n    first_name = \"test name\"\n    last_name = \"test last\"\n    age = 77\n    pet_id = 2\n    repo = PeopleRepository(db_connection_handler)\n    repo.insert_person(first_name=first_name, last_name=last_name, age=age, pet_id=pet_id)\n@pytest.mark.skip(reason=\"interaction with database\")\ndef test_get_person():\n    person_id = 1",
+        "detail": "src.models.sqlite.repositories.repositories_test",
+        "documentation": {}
+    },
+    {
+        "label": "test_get_person",
+        "kind": 2,
+        "importPath": "src.models.sqlite.repositories.repositories_test",
+        "description": "src.models.sqlite.repositories.repositories_test",
+        "peekOfCode": "def test_get_person():\n    person_id = 1\n    repo = PeopleRepository(db_connection_handler)\n    person = repo.get_person(person_id=person_id)\n    print()\n    print(person)",
         "detail": "src.models.sqlite.repositories.repositories_test",
         "documentation": {}
     },
