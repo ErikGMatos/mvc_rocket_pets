@@ -1,6 +1,15 @@
 [
     {
-        "label": "PeopleRepositoryInterface",
+        "label": "re",
+        "kind": 6,
+        "isExtraImport": true,
+        "importPath": "re",
+        "description": "re",
+        "detail": "re",
+        "documentation": {}
+    },
+    {
+        "label": "\\",
         "importPath": "src.models.sqlite.interfaces.people_repository",
         "description": "src.models.sqlite.interfaces.people_repository",
         "isExtraImport": true,
@@ -13,6 +22,23 @@
         "description": "src.models.sqlite.interfaces.people_repository",
         "isExtraImport": true,
         "detail": "src.models.sqlite.interfaces.people_repository",
+        "documentation": {}
+    },
+    {
+        "label": "pytest",
+        "kind": 6,
+        "isExtraImport": true,
+        "importPath": "pytest",
+        "description": "pytest",
+        "detail": "pytest",
+        "documentation": {}
+    },
+    {
+        "label": "PersonCreatorController",
+        "importPath": "src.controllers.person_creator_controller",
+        "description": "src.controllers.person_creator_controller",
+        "isExtraImport": true,
+        "detail": "src.controllers.person_creator_controller",
         "documentation": {}
     },
     {
@@ -224,15 +250,6 @@
         "documentation": {}
     },
     {
-        "label": "pytest",
-        "kind": 6,
-        "isExtraImport": true,
-        "importPath": "pytest",
-        "description": "pytest",
-        "detail": "pytest",
-        "documentation": {}
-    },
-    {
         "label": "UnifiedAlchemyMagicMock",
         "importPath": "mock_alchemy.mocking",
         "description": "mock_alchemy.mocking",
@@ -285,8 +302,35 @@
         "kind": 6,
         "importPath": "src.controllers.person_creator_controller",
         "description": "src.controllers.person_creator_controller",
-        "peekOfCode": "class PersonCreatorController:\n    def __init__(self, people_repository: PeopleRepositoryInterface) -> None:\n        self.__people_repository = people_repository",
+        "peekOfCode": "class PersonCreatorController:\n    def __init__(self, people_repository: PeopleRepositoryInterface) -> None:\n        self.__people_repository = people_repository\n    def create(self, person_info: dict) -> dict:\n        first_name = person_info.get(\"first_name\")\n        last_name = person_info.get(\"last_name\")\n        age = person_info.get(\"age\")\n        pet_id = person_info.get(\"pet_id\")\n        self.__validate_first_and_last_name(first_name, last_name)\n        self.__insert_person_in_db(first_name, last_name, age, pet_id)",
         "detail": "src.controllers.person_creator_controller",
+        "documentation": {}
+    },
+    {
+        "label": "MockPeopleRepository",
+        "kind": 6,
+        "importPath": "src.controllers.person_creator_controller_test",
+        "description": "src.controllers.person_creator_controller_test",
+        "peekOfCode": "class MockPeopleRepository:\n    def insert_person(self, first_name: str, last_name: str, age: int, pet_id: int) -> None:\n        pass\ndef test_create():\n    person_info = {\n        \"first_name\": \"Fulano\",\n        \"last_name\": \"deTal\",\n        \"age\": 30,\n        \"pet_id\": 123\n    }",
+        "detail": "src.controllers.person_creator_controller_test",
+        "documentation": {}
+    },
+    {
+        "label": "test_create",
+        "kind": 2,
+        "importPath": "src.controllers.person_creator_controller_test",
+        "description": "src.controllers.person_creator_controller_test",
+        "peekOfCode": "def test_create():\n    person_info = {\n        \"first_name\": \"Fulano\",\n        \"last_name\": \"deTal\",\n        \"age\": 30,\n        \"pet_id\": 123\n    }\n    controller = PersonCreatorController(MockPeopleRepository())\n    response = controller.create(person_info)\n    assert response[\"data\"][\"type\"] == \"Person\"",
+        "detail": "src.controllers.person_creator_controller_test",
+        "documentation": {}
+    },
+    {
+        "label": "test_create_error",
+        "kind": 2,
+        "importPath": "src.controllers.person_creator_controller_test",
+        "description": "src.controllers.person_creator_controller_test",
+        "peekOfCode": "def test_create_error():\n    person_info = {\n        \"first_name\": \"Fulano123\",\n        \"last_name\": \"deTal\",\n        \"age\": 30,\n        \"pet_id\": 123\n    }\n    controller = PersonCreatorController(MockPeopleRepository())\n    with pytest.raises(Exception) as exception:\n        controller.create(person_info)",
+        "detail": "src.controllers.person_creator_controller_test",
         "documentation": {}
     },
     {
