@@ -17,6 +17,14 @@
         "documentation": {}
     },
     {
+        "label": "PeopleRepositoryInterface",
+        "importPath": "src.models.sqlite.interfaces.people_repository",
+        "description": "src.models.sqlite.interfaces.people_repository",
+        "isExtraImport": true,
+        "detail": "src.models.sqlite.interfaces.people_repository",
+        "documentation": {}
+    },
+    {
         "label": "\\",
         "importPath": "src.models.sqlite.interfaces.people_repository",
         "description": "src.models.sqlite.interfaces.people_repository",
@@ -39,6 +47,46 @@
         "description": "src.controllers.person_creator_controller",
         "isExtraImport": true,
         "detail": "src.controllers.person_creator_controller",
+        "documentation": {}
+    },
+    {
+        "label": "PeopleTable",
+        "importPath": "src.models.sqlite.entities.people",
+        "description": "src.models.sqlite.entities.people",
+        "isExtraImport": true,
+        "detail": "src.models.sqlite.entities.people",
+        "documentation": {}
+    },
+    {
+        "label": "PeopleTable",
+        "importPath": "src.models.sqlite.entities.people",
+        "description": "src.models.sqlite.entities.people",
+        "isExtraImport": true,
+        "detail": "src.models.sqlite.entities.people",
+        "documentation": {}
+    },
+    {
+        "label": "PeopleTable",
+        "importPath": "src.models.sqlite.entities.people",
+        "description": "src.models.sqlite.entities.people",
+        "isExtraImport": true,
+        "detail": "src.models.sqlite.entities.people",
+        "documentation": {}
+    },
+    {
+        "label": "PeopleTable",
+        "importPath": "src.models.sqlite.entities.people",
+        "description": "src.models.sqlite.entities.people",
+        "isExtraImport": true,
+        "detail": "src.models.sqlite.entities.people",
+        "documentation": {}
+    },
+    {
+        "label": "PersonFinderController",
+        "importPath": "src.controllers.person_finder_controller",
+        "description": "src.controllers.person_finder_controller",
+        "isExtraImport": true,
+        "detail": "src.controllers.person_finder_controller",
         "documentation": {}
     },
     {
@@ -159,22 +207,6 @@
         "description": "abc",
         "isExtraImport": true,
         "detail": "abc",
-        "documentation": {}
-    },
-    {
-        "label": "PeopleTable",
-        "importPath": "src.models.sqlite.entities.people",
-        "description": "src.models.sqlite.entities.people",
-        "isExtraImport": true,
-        "detail": "src.models.sqlite.entities.people",
-        "documentation": {}
-    },
-    {
-        "label": "PeopleTable",
-        "importPath": "src.models.sqlite.entities.people",
-        "description": "src.models.sqlite.entities.people",
-        "isExtraImport": true,
-        "detail": "src.models.sqlite.entities.people",
         "documentation": {}
     },
     {
@@ -331,6 +363,42 @@
         "description": "src.controllers.person_creator_controller_test",
         "peekOfCode": "def test_create_error():\n    person_info = {\n        \"first_name\": \"Fulano123\",\n        \"last_name\": \"deTal\",\n        \"age\": 30,\n        \"pet_id\": 123\n    }\n    controller = PersonCreatorController(MockPeopleRepository())\n    with pytest.raises(Exception) as exception:\n        controller.create(person_info)",
         "detail": "src.controllers.person_creator_controller_test",
+        "documentation": {}
+    },
+    {
+        "label": "PersonFinderController",
+        "kind": 6,
+        "importPath": "src.controllers.person_finder_controller",
+        "description": "src.controllers.person_finder_controller",
+        "peekOfCode": "class PersonFinderController:\n    def __init__(self, people_repository: PeopleRepositoryInterface) -> None:\n        self.__people_repository = people_repository\n    def find(self, person_id: int) -> dict:\n        person = self.__find_person_in_db(person_id)\n        response = self.__format_response(person)\n        return response\n    def __find_person_in_db(self, person_id: int) -> PeopleTable:\n        person = self.__people_repository.get_person(person_id)\n        if not person:",
+        "detail": "src.controllers.person_finder_controller",
+        "documentation": {}
+    },
+    {
+        "label": "MockPerson",
+        "kind": 6,
+        "importPath": "src.controllers.person_finder_controller_test",
+        "description": "src.controllers.person_finder_controller_test",
+        "peekOfCode": "class MockPerson:\n    def __init__(self, first_name, last_name, pet_name, pet_type):\n        self.first_name = first_name\n        self.last_name = last_name\n        self.pet_name = pet_name\n        self.pet_type = pet_type\nclass MockPeopleRepository:\n    def get_person(self, person_id: int) -> PeopleTable:  # pylint: disable=unused-argument\n        return MockPerson(\n            first_name=\"John\",",
+        "detail": "src.controllers.person_finder_controller_test",
+        "documentation": {}
+    },
+    {
+        "label": "MockPeopleRepository",
+        "kind": 6,
+        "importPath": "src.controllers.person_finder_controller_test",
+        "description": "src.controllers.person_finder_controller_test",
+        "peekOfCode": "class MockPeopleRepository:\n    def get_person(self, person_id: int) -> PeopleTable:  # pylint: disable=unused-argument\n        return MockPerson(\n            first_name=\"John\",\n            last_name=\"Doe\",\n            pet_name=\"Fluffy\",\n            pet_type=\"cat\",\n        )\ndef test_find():\n    person_id = 123",
+        "detail": "src.controllers.person_finder_controller_test",
+        "documentation": {}
+    },
+    {
+        "label": "test_find",
+        "kind": 2,
+        "importPath": "src.controllers.person_finder_controller_test",
+        "description": "src.controllers.person_finder_controller_test",
+        "peekOfCode": "def test_find():\n    person_id = 123\n    controller = PersonFinderController(MockPeopleRepository())\n    response = controller.find(person_id)\n    expected_response = {\n        \"data\": {\n            \"type\": \"Person\"\n            \"count: 1\",\n            \"attributes\": {\n                    \"first_name\": \"John\",",
+        "detail": "src.controllers.person_finder_controller_test",
         "documentation": {}
     },
     {
