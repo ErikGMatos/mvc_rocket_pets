@@ -1,5 +1,5 @@
-from src.models.sqlite.entities.people import PeopleTable
 from src.controllers.person_finder_controller import PersonFinderController
+from src.models.sqlite.entities.people import PeopleTable
 
 
 class MockPerson:

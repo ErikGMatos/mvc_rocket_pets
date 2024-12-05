@@ -7,6 +7,11 @@
   "[python]": {
     "editor.tabSize": 4,
     "editor.defaultFormatter": "ms-python.autopep8",
-    "editor.formatOnSave": true
-  }
+    "editor.formatOnSave": true,
+    "editor.codeActionsOnSave": {
+      "source.organizeImports": "explicit"
+    },
+  },
+  "python.analysis.indexing": true,
+  "python.analysis.autoImportCompletions": true,
 }
