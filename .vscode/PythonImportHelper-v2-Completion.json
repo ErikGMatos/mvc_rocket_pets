@@ -96,6 +96,14 @@
         "documentation": {}
     },
     {
+        "label": "NoResultFound",
+        "importPath": "sqlalchemy.exc",
+        "description": "sqlalchemy.exc",
+        "isExtraImport": true,
+        "detail": "sqlalchemy.exc",
+        "documentation": {}
+    },
+    {
         "label": "PetsTable",
         "importPath": "src.models.sqlite.entities.pets",
         "description": "src.models.sqlite.entities.pets",
@@ -120,20 +128,20 @@
         "documentation": {}
     },
     {
-        "label": "UnifiedAlchemyMagicMock",
-        "importPath": "mock_alchemy.mocking",
-        "description": "mock_alchemy.mocking",
-        "isExtraImport": true,
-        "detail": "mock_alchemy.mocking",
-        "documentation": {}
-    },
-    {
         "label": "pytest",
         "kind": 6,
         "isExtraImport": true,
         "importPath": "pytest",
         "description": "pytest",
         "detail": "pytest",
+        "documentation": {}
+    },
+    {
+        "label": "UnifiedAlchemyMagicMock",
+        "importPath": "mock_alchemy.mocking",
+        "description": "mock_alchemy.mocking",
+        "isExtraImport": true,
+        "detail": "mock_alchemy.mocking",
         "documentation": {}
     },
     {
@@ -205,11 +213,47 @@
         "documentation": {}
     },
     {
-        "label": "test_pets_repository",
+        "label": "MockConnectionNoResult",
+        "kind": 6,
+        "importPath": "src.models.sqlite.repositories.pets_repository_test",
+        "description": "src.models.sqlite.repositories.pets_repository_test",
+        "peekOfCode": "class MockConnectionNoResult:\n    def __init__(self) -> None:\n        self.session = UnifiedAlchemyMagicMock()\n        self.session.query.side_effect = self.raise_no_result_found\n    def raise_no_result_found(self, *args, **kwargs):\n        raise NoResultFound()\n    def __enter__(self): return self\n    def __exit__(self, exc_type, exc_val, exc_tb): pass\ndef test_list_pets():\n    mock_connection = MockConnection()",
+        "detail": "src.models.sqlite.repositories.pets_repository_test",
+        "documentation": {}
+    },
+    {
+        "label": "test_list_pets",
         "kind": 2,
         "importPath": "src.models.sqlite.repositories.pets_repository_test",
         "description": "src.models.sqlite.repositories.pets_repository_test",
-        "peekOfCode": "def test_pets_repository():\n    mock_connection = MockConnection()\n    repo = PetsRepository(mock_connection)\n    response = repo.list_pets()\n    mock_connection.session.query.assert_called_once_with(PetsTable)\n    mock_connection.session.all.assert_called_once()\n    mock_connection.session.filter.assert_not_called()\n    assert response[0].name == \"dog\"",
+        "peekOfCode": "def test_list_pets():\n    mock_connection = MockConnection()\n    repo = PetsRepository(mock_connection)\n    response = repo.list_pets()\n    mock_connection.session.query.assert_called_once_with(PetsTable)\n    mock_connection.session.all.assert_called_once()\n    mock_connection.session.filter.assert_not_called()\n    assert response[0].name == \"dog\"\ndef test_delete_pet():\n    name = \"name_pet\"",
+        "detail": "src.models.sqlite.repositories.pets_repository_test",
+        "documentation": {}
+    },
+    {
+        "label": "test_delete_pet",
+        "kind": 2,
+        "importPath": "src.models.sqlite.repositories.pets_repository_test",
+        "description": "src.models.sqlite.repositories.pets_repository_test",
+        "peekOfCode": "def test_delete_pet():\n    name = \"name_pet\"\n    mock_connection = MockConnection()\n    repo = PetsRepository(mock_connection)\n    repo.delete_pet(name)\n    mock_connection.session.query.assert_called_once_with(PetsTable)\n    mock_connection.session.filter.assert_called_once_with(PetsTable.name == name)\n    mock_connection.session.delete.assert_called_once()\ndef test_list_pets_no_result():\n    mock_connection = MockConnectionNoResult()",
+        "detail": "src.models.sqlite.repositories.pets_repository_test",
+        "documentation": {}
+    },
+    {
+        "label": "test_list_pets_no_result",
+        "kind": 2,
+        "importPath": "src.models.sqlite.repositories.pets_repository_test",
+        "description": "src.models.sqlite.repositories.pets_repository_test",
+        "peekOfCode": "def test_list_pets_no_result():\n    mock_connection = MockConnectionNoResult()\n    repo = PetsRepository(mock_connection)\n    response = repo.list_pets()\n    mock_connection.session.query.assert_called_once_with(PetsTable)\n    mock_connection.session.all.assert_not_called()\n    mock_connection.session.filter.assert_not_called()\n    assert response == []\ndef test_delete_pet_error():\n    name = \"name_pet\"",
+        "detail": "src.models.sqlite.repositories.pets_repository_test",
+        "documentation": {}
+    },
+    {
+        "label": "test_delete_pet_error",
+        "kind": 2,
+        "importPath": "src.models.sqlite.repositories.pets_repository_test",
+        "description": "src.models.sqlite.repositories.pets_repository_test",
+        "peekOfCode": "def test_delete_pet_error():\n    name = \"name_pet\"\n    mock_connection = MockConnectionNoResult()\n    repo = PetsRepository(mock_connection)\n    with pytest.raises(NoResultFound):\n        repo.delete_pet(name)\n    mock_connection.session.rollback.assert_called_once()",
         "detail": "src.models.sqlite.repositories.pets_repository_test",
         "documentation": {}
     },
